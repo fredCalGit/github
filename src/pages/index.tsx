@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Create Next App</title>
+        <title>Github Users</title>
         <meta name='description' content='Find Github Users' />
         <meta name='viewport' content='width=device-width, initial-scale=1' />
       </Head>
