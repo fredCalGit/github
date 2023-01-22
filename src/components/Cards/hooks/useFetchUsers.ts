@@ -78,7 +78,6 @@ export function useFetchUsers({ queryString }: UseFetchUsersProps) {
     const fetchedUsers = serializeUser(data);
 
     setUsers(fetchedUsers);
-    console.log("leaking");
   }, [loading, error, data]);
 
   return {
