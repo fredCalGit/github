@@ -70,16 +70,19 @@ export function Navbar({ setQueryString }: NavbarProps) {
         />
       </Link>
       <Spacer />
-      <InputGroup w='80%' maxW='container.md'>
+      <InputGroup w='80%' maxW={{ lg: "container.md", sm: "200px" }}>
         <Input
           variant='flushed'
           placeholder='Search for Github Users'
-          size='lg'
+          size='md'
           color='secondary'
           style={{ borderBottomColor: theme.colors.primary }}
           onChange={(event) => handleInputChange(event)}
         />
-        <InputRightElement pointerEvents='none' fontSize='1.2em'>
+        <InputRightElement
+          pointerEvents='none'
+          fontSize={{ lg: "1.2rem", md: "0.8rem" }}
+        >
           <i
             className='fa fa-search'
             style={{ color: theme.colors.secondary }}
@@ -99,7 +102,7 @@ export function Navbar({ setQueryString }: NavbarProps) {
             color: isActive ? theme.colors.secondary : theme.colors.primary,
           }}
         ></i>
-        <Switch size='lg' onChange={() => handleClick()} />
+        <Switch size='md' onChange={() => handleClick()} />
         <i
           className='fa fa-sun'
           style={{

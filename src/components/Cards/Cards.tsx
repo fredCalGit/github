@@ -2,7 +2,7 @@ import React from "react";
 import { Flex, SimpleGrid } from "@chakra-ui/react";
 import { Waypoint } from "react-waypoint";
 import { useFetchUsers } from "./hooks/useFetchUsers";
-import { Card, Loading } from "./components";
+import { Card, EmptyState, Loading } from "./components";
 
 interface CardsProps {
   queryString: string;
@@ -14,6 +14,7 @@ export function Cards({ queryString }: CardsProps) {
   } = useFetchUsers({ queryString });
 
   if (isLoading && networkStatus !== 3) return <Loading />;
+  if (users.length === 0 && networkStatus === 7) return <EmptyState />;
   return (
     <Flex
       className='cards'
