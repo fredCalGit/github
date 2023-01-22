@@ -1,0 +1,16 @@
+html,
+body {
+  overflow: hidden;
+}
+
+.cards::-webkit-scrollbar {
+  width: 12px;
+}
+.cards::-webkit-scrollbar-track {
+  background: inherit;
+}
+.cards::-webkit-scrollbar-thumb {
+  background-color: #8aaec0;
+  border-radius: 20px;
+  border: 3px solid transparent;
+}

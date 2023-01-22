@@ -1,14 +1,14 @@
-export type User = {
-  avatarUrl: string;
-  bio: string;
-  company: string;
-  createdAt: string;
-  email: string;
+export interface User {
   id: string;
-  location: string;
-  name: string;
   login: string;
+  email: string;
+  name: string;
+  company: string;
+  location: string;
+  bio: string;
+  avatarUrl: string;
+  createdAt: string;
   repositories: {
     totalCount: number;
   };
-};
+}

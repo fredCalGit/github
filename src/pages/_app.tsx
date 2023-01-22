@@ -1,15 +1,15 @@
 import { createContext, useState } from "react";
-import "@/styles/globals.css";
+import "../styles/global.css";
 import type { AppProps } from "next/app";
 import { ChakraProvider } from "@chakra-ui/react";
-import { lightTheme } from "@/styles/Theme";
+import { darkTheme } from "@/styles/Theme";
 import { ApolloProvider } from "@apollo/client";
 import { client } from "@/graphql";
 
-export const ThemeContext = createContext<Record<string, any>>(lightTheme);
+export const ThemeContext = createContext<Record<string, any>>(darkTheme);
 
 export default function App({ Component, pageProps }: AppProps) {
-  const [theme, setTheme] = useState<Record<string, any>>(lightTheme);
+  const [theme, setTheme] = useState<Record<string, any>>(darkTheme);
 
   return (
     <ThemeContext.Provider value={{ theme, setTheme }}>

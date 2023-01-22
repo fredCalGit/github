@@ -23,7 +23,7 @@ interface NavbarProps {
   setQueryString: Dispatch<React.SetStateAction<string>>;
 }
 
-export default function Navbar({ setQueryString }: NavbarProps) {
+export function Navbar({ setQueryString }: NavbarProps) {
   const { theme, setTheme } = useContext(ThemeContext);
   const [isActive, setIsActive] = useState(false);
   const [realTimeValue, setRealTimeValue] = useState("");
@@ -94,16 +94,16 @@ export default function Navbar({ setQueryString }: NavbarProps) {
         w='100px'
       >
         <i
-          className='fa fa-sun'
+          className='fa fa-moon'
           style={{
-            color: theme.colors.bgSecondary,
+            color: isActive ? theme.colors.secondary : theme.colors.primary,
           }}
         ></i>
         <Switch size='lg' onChange={() => handleClick()} />
         <i
-          className='fa fa-moon'
+          className='fa fa-sun'
           style={{
-            color: isActive ? theme.colors.secondary : theme.colors.primary,
+            color: theme.colors.bgSecondary,
           }}
         ></i>
       </Flex>

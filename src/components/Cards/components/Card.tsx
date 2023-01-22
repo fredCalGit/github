@@ -1,18 +1,15 @@
 import { ThemeContext } from "@/pages/_app";
 import { User } from "@/types";
-import { dateParser } from "@/utils";
+import { isoDateParser } from "@/utils";
 import {
   Card as ChakraCard,
   CardBody,
   Heading,
-  Image,
   Text,
   Stack,
   CardHeader,
   Flex,
-  Spacer,
   Avatar,
-  VStack,
 } from "@chakra-ui/react";
 
 import React, { useContext } from "react";
@@ -21,20 +18,21 @@ interface CardProps {
   user: User;
   isLoading: boolean;
 }
-export default function Card({ user, isLoading }: CardProps) {
+export function Card({ user, isLoading }: CardProps) {
   const { theme } = useContext(ThemeContext);
 
-  if (isLoading) return <p>Loading...</p>;
+  //if (isLoading) return <p>Loading...</p>;
 
   return (
     <ChakraCard
       maxW='md'
+      h='100%'
       maxH='400px'
       bg='bgPrimary'
       color='primary'
       cursor='pointer'
       sx={{
-        transition: "all ease-in .5",
+        transition: "all ease-out .3s",
         _hover: {
           transform: "translateY(-5px)",
           boxShadow: "5px 5px 10px 5px rgba(0,0,0,0.3)",
@@ -74,7 +72,7 @@ export default function Card({ user, isLoading }: CardProps) {
                   <span
                     style={{ color: theme.colors.primary, fontWeight: "400" }}
                   >
-                    {dateParser(user.createdAt)}
+                    {isoDateParser(user.createdAt)}
                   </span>
                 </Text>
               )}
