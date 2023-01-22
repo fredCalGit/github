@@ -41,21 +41,31 @@ export function useFetchUsers({ queryString }: UseFetchUsersProps) {
 
   const handleScroll = (index: number) => {
     if (index !== users.length - 10) return;
+
+    const mergeData = (prev: QueryResult, newUsers: QueryResult) => {
+      let result = [...prev.search.edges];
+      newUsers.search.edges.forEach((newUser) => {
+        if (!result.find((user) => user.node.id === newUser.node.id)) {
+          result.push(newUser);
+        }
+      });
+
+      return result;
+    };
     if (data) {
       fetchMore({
         variables: {
           query: queryString,
           type: "USER",
-          after: data.search.edges[index].cursor,
-          first: 20,
+          after: data.search.edges[data.search.edges.length - 1].cursor,
+          first: 10,
         },
         updateQuery: (prev, { fetchMoreResult }) => {
           if (!fetchMoreResult) return prev;
           return {
             search: {
               __typename: "SearchResultItemConnection",
-              edges: [...prev.search.edges, ...fetchMoreResult.search.edges],
-              cursor: data.search.edges[index].cursor,
+              edges: mergeData(prev, fetchMoreResult),
             },
           };
         },

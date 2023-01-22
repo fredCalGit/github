@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Flex, SimpleGrid } from "@chakra-ui/react";
 import { Waypoint } from "react-waypoint";
 import { useFetchUsers } from "./hooks/useFetchUsers";
@@ -30,22 +30,14 @@ export function Cards({ queryString }: CardsProps) {
       <SimpleGrid minChildWidth='300px' spacing='20px' h='full' mb='1rem'>
         {users &&
           users.map((user, i) => {
-            if (i === users.length - 10) {
-              return (
-                <div key={`cardKey-${Math.random()}-${user.id}`}>
-                  <Card user={user} isLoading={isLoading} />
+            return (
+              <div key={`cardKey-${Math.random()}-${user.id}`}>
+                <Card user={user} isLoading={isLoading} />
+                {i === users.length - 10 && (
                   <Waypoint onEnter={() => handleScroll(i)} />
-                </div>
-              );
-            } else {
-              return (
-                <Card
-                  user={user}
-                  isLoading={isLoading}
-                  key={`cardKey-${Math.random()}-${user.id}`}
-                />
-              );
-            }
+                )}
+              </div>
+            );
           })}
       </SimpleGrid>
       {networkStatus === 3 && <Loading contained={true} />}
