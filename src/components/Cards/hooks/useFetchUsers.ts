@@ -42,30 +42,21 @@ export function useFetchUsers({ queryString }: UseFetchUsersProps) {
   const handleScroll = (index: number) => {
     if (index !== users.length - 10) return;
 
-    const mergeData = (prev: QueryResult, newUsers: QueryResult) => {
-      let result = [...prev.search.edges];
-      newUsers.search.edges.forEach((newUser) => {
-        if (!result.find((user) => user.node.id === newUser.node.id)) {
-          result.push(newUser);
-        }
-      });
-
-      return result;
-    };
     if (data) {
       fetchMore({
         variables: {
           query: queryString,
           type: "USER",
           after: data.search.edges[data.search.edges.length - 1].cursor,
-          first: 10,
+          first: 20,
         },
         updateQuery: (prev, { fetchMoreResult }) => {
           if (!fetchMoreResult) return prev;
+
           return {
             search: {
               __typename: "SearchResultItemConnection",
-              edges: mergeData(prev, fetchMoreResult),
+              edges: [...prev.search.edges, ...fetchMoreResult.search.edges],
             },
           };
         },
@@ -83,16 +74,15 @@ export function useFetchUsers({ queryString }: UseFetchUsersProps) {
   }, [queryString]);
 
   useEffect(() => {
-    if (!data || error || loading) return;
-
+    if (!data) return;
     const fetchedUsers = serializeUser(data);
 
     setUsers(fetchedUsers);
-  }, [loading, error, data]);
+  }, [data]);
 
   return {
     data: {
-      users,
+      users: data ? serializeUser(data) : [],
       isLoading: loading,
       error,
       networkStatus,
@@ -121,7 +111,7 @@ type QueryVariables = {
 };
 
 const FETCH_USERS = gql`
-  query ExampleQuery(
+  query FetchUsers(
     $query: String!
     $type: SearchType!
     $first: Int

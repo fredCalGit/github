@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Flex, SimpleGrid } from "@chakra-ui/react";
 import { Waypoint } from "react-waypoint";
 import { useFetchUsers } from "./hooks/useFetchUsers";
@@ -9,12 +9,13 @@ interface CardsProps {
 }
 export function Cards({ queryString }: CardsProps) {
   const {
-    data: { users, isLoading, error, networkStatus },
+    data: { users, isLoading, networkStatus },
     actions: { handleScroll },
   } = useFetchUsers({ queryString });
 
   if (isLoading && networkStatus !== 3) return <Loading />;
   if (users.length === 0 && networkStatus === 7) return <EmptyState />;
+
   return (
     <Flex
       className='cards'

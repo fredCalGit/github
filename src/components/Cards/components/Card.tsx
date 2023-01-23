@@ -1,3 +1,4 @@
+import React, { useContext } from "react";
 import { ThemeContext } from "@/pages/_app";
 import { User } from "@/types";
 import { isoDateParser } from "@/utils";
@@ -12,16 +13,12 @@ import {
   Avatar,
 } from "@chakra-ui/react";
 
-import React, { useContext } from "react";
-
 interface CardProps {
   user: User;
   isLoading: boolean;
 }
-export function Card({ user, isLoading }: CardProps) {
+export function Card({ user }: CardProps) {
   const { theme } = useContext(ThemeContext);
-
-  //if (isLoading) return <p>Loading...</p>;
 
   return (
     <ChakraCard
